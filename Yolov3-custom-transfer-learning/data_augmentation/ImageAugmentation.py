@@ -6,10 +6,15 @@ from numpy import expand_dims
 from keras_preprocessing.image import load_img
 from keras_preprocessing.image import img_to_array
 from keras_preprocessing.image import ImageDataGenerator
+from PIL import Image, ImageOps
 
 class ImageAugmentation:
-    def __init__(self, image):
+    def __init__(self, image: str):
         self.image = load_img(image)
+        self.gray_image = skimage.color.rgb2gray(self.image)
+        
+    def __init__(self, image: Image):
+        self.image = image
         self.gray_image = skimage.color.rgb2gray(self.image)
         
     # Chuyển màu xám
@@ -130,5 +135,17 @@ directory = os.fsencode(folderDirec)
 for file in os.listdir(directory):
     filename = os.fsdecode(file)
     if filename.endswith(".jpg"): 
-        image = ImageAugmentation(folderDirec + filename)
+        im = Image.open(folderDirec + filename)
+        old_size = im.size  # old_size[0] is in (width, height) format
+        h, w = im.size
+        desired_size = max(h,w)
+        ratio = float(desired_size)/max(old_size)
+        new_size = tuple([int(x*ratio) for x in old_size])
+        im = im.resize(new_size, Image.ANTIALIAS)
+
+        new_im = Image.new("RGB", (desired_size, desired_size))
+        new_im.paste(im, ((desired_size-new_size[0])//2,
+                    (desired_size-new_size[1])//2))
+        
+        image = ImageAugmentation(new_im)
         image.ChangeImageAugemtation()
