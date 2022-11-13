@@ -34,7 +34,7 @@ class ImageAugmentation:
         imageDataGen = ImageDataGenerator(horizontal_flip=True)
         
         iterator = imageDataGen.flow(imageNew, batch_size=1, save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation_horizotal/', 
-                          save_prefix ='image', save_format ='jpeg', shuffle=False)
+                          save_prefix ='image', save_format ='jpg', shuffle=False)
         
         return iterator.next()[0].astype('uint8')
     
@@ -49,7 +49,7 @@ class ImageAugmentation:
         imageDataGen = ImageDataGenerator(vertical_flip=True)
         
         iterator = imageDataGen.flow(imageNew, batch_size=1, save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation_vertical/', 
-                          save_prefix ='image', save_format ='jpeg', shuffle=False)
+                          save_prefix ='image', save_format ='jpg', shuffle=False)
         
         return iterator.next()[0].astype('uint8')
         
@@ -66,7 +66,7 @@ class ImageAugmentation:
         i = 0
         for batch in imageDataGen.flow(imageNew, batch_size = 1,
                           save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation_rotate/', 
-                          save_prefix ='image', save_format ='jpeg'):
+                          save_prefix ='image', save_format ='jpg'):
             i += 1
             if i > 3:
                 break
@@ -84,7 +84,7 @@ class ImageAugmentation:
         i = 0
         for batch in imageDataGen.flow(imageNew, batch_size = 1,
                           save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation_rotate90/', 
-                          save_prefix ='image', save_format ='jpeg', shuffle=False):
+                          save_prefix ='image', save_format ='jpg', shuffle=False):
             i += 1
             if i > 2 :
                 break   
@@ -102,7 +102,7 @@ class ImageAugmentation:
         i = 0
         for batch in imageDataGen.flow(imageNew, batch_size = 1,
                           save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation_light/', 
-                          save_prefix ='image', save_format ='jpeg'):
+                          save_prefix ='image', save_format ='jpg'):
             i += 1
             if i > 3:
                 break
@@ -119,7 +119,7 @@ class ImageAugmentation:
         i = 0
         for batch in imageDataGen.flow(imageNew, batch_size = 1,
                           save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation/', 
-                          save_prefix ='image', save_format ='jpeg', shuffle=False):
+                          save_prefix ='image', save_format ='jpg', shuffle=False):
             i += 1
             if i > 2 :
                 break  
