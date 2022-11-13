@@ -70,6 +70,24 @@ class ImageAugmentation:
             i += 1
             if i > 3:
                 break
+       
+    # Xoay
+    def Rotate(self, degree):
+        # convert to numpy array
+        dataImage  = img_to_array(self.image)
+
+        # expand dimension to one sample
+        imageNew  = expand_dims(dataImage, 0)
+        
+        imageDataGen = ImageDataGenerator(rotation_range=degree, fill_mode='nearest')
+        
+        i = 0
+        for batch in imageDataGen.flow(imageNew, batch_size = 1,
+                          save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation_rotate90/', 
+                          save_prefix ='image', save_format ='jpeg', shuffle=False):
+            i += 1
+            if i > 2 :
+                break   
             
     # Thay đổi độ sáng
     def ChangeLight(self):
@@ -89,6 +107,23 @@ class ImageAugmentation:
             if i > 3:
                 break
     
+    def ChangeImageAugemtation(self):
+        # convert to numpy array
+        dataImage  = img_to_array(self.image)
+
+        # expand dimension to one sample
+        imageNew  = expand_dims(dataImage, 0)
+        
+        imageDataGen = ImageDataGenerator(rotation_range=90, vertical_flip=True, horizontal_flip=True)
+        
+        i = 0
+        for batch in imageDataGen.flow(imageNew, batch_size = 1,
+                          save_to_dir ='Yolov3-custom-transfer-learning/trainning_images_augmetation/', 
+                          save_prefix ='image', save_format ='jpeg', shuffle=False):
+            i += 1
+            if i > 2 :
+                break  
+    
 folderDirec = "Yolov3-custom-transfer-learning/trainning_images/"
 directory = os.fsencode(folderDirec)
     
@@ -96,7 +131,4 @@ for file in os.listdir(directory):
     filename = os.fsdecode(file)
     if filename.endswith(".jpg"): 
         image = ImageAugmentation(folderDirec + filename)
-        image.VerticalFlip()
-        #image.HorizontalFlip()
-        image.Rotate()
-        #image.ChangeLight()
+        image.ChangeImageAugemtation()
